@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import './App.scss';
-import AddColorForm from './components/add-color-form/Add-color-form';
+import AddColorForm from './components/add-color-form/add-color-form';
 import { ColorFormProps } from './interfaces/ColorFormProps';
 
-const [hex, addColor] = useState('')
-
-const handleAdd = () =>{
-
-}
-
-
 const App:React.FC = () => {
+
+  const [hex, addColor] = useState('')
+
+  const handleAdd = () =>{
+  
+  }
+
   return (
     <div className="App">
       <header className="data-header">
