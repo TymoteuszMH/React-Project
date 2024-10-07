@@ -1,7 +1,12 @@
 import React from "react";
-import { ColorFormProps } from "../../interfaces/ColorFormProps";
+import { IColorFormProps } from "../../interfaces/IForm";
+import { RGB } from "../../interfaces/IColor";
 
-class AddColorForm extends React.Component<ColorFormProps>{
+class AddColorForm extends React.Component<IColorFormProps>{
+
+    state = {
+        hex: ''
+    }
 
     validHex:boolean = false;
     block:RegExp = new RegExp("^#[A-Fa-f0-9]{0,6}$");
@@ -19,15 +24,45 @@ class AddColorForm extends React.Component<ColorFormProps>{
         }
         
         this.validHex = this.regex.test(text)
-        this.props.addColor(text);
+
+        this.setState({hex: text})
+    }
+
+    convertToRGB(hex: string):RGB{
+        let result:RegExpExecArray|null = /^#?([A-F\d]{2})([A-F\d]{2})([A-F\d]{2})$/i.exec(hex);
+
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : {r: 0, g: 0, b: 0};
+    }
+
+    handleAdd = (e:React.FormEvent) =>{
+        e.preventDefault();
+        if(this.state.hex){
+
+            this.state.hex = this.state.hex.toUpperCase();
+
+            if (this.state.hex.length == 4)
+                this.state.hex = this.state.hex.split("").map((s) => s.repeat(s=="#" ? 1 : 2)).join("")
+            
+            this.props.handleAdd({
+                hex: this.state.hex, 
+                rgb:this.convertToRGB(this.state.hex), 
+                deletable: true}
+            )
+            
+            this.setState({hex: ''})
+        }
     }
 
     render(): React.ReactNode {
         return(
-            <form onSubmit={this.props.handleAdd}>
+            <form onSubmit={this.handleAdd}>
                 <label>Enter HEX Code</label>
                 <input type="text" 
-                    value={this.props.hex}
+                    value={this.state.hex}
                     onChange={(e)=>{
                         this.typing(e)}
                     }
