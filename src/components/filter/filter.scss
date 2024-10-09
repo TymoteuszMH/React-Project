@@ -1,0 +1,28 @@
+form{
+    align-items: center;
+    overflow: hidden
+}
+.data-filter-element{
+    max-width: 150px;
+    padding-left: 10px;
+    user-select: none;
+    float: left;
+    label{
+        float: left;
+        width: 40px;
+        margin-left: 10px;
+        text-align: start;
+    }
+    span{
+        float: right;
+        width: 40px;
+        margin-right: 10px;
+        text-align: end;
+    }
+    input{
+        clear: both;
+        width: 100px;
+        max-width: 100px;
+        height: 20px;
+    }
+}
