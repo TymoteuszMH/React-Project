@@ -1,4 +1,5 @@
 import React from "react";
+import './add-color-form.scss'
 import { IColorFormProps } from "../../interfaces/IForm";
 import { RGB } from "../../interfaces/IColor";
 
@@ -52,7 +53,6 @@ class AddColorForm extends React.Component<IColorFormProps>{
                 rgb:this.convertToRGB(this.state.hex), 
                 deletable: true}
             )
-            
             this.setState({hex: ''})
         }
     }
@@ -60,7 +60,8 @@ class AddColorForm extends React.Component<IColorFormProps>{
     render(): React.ReactNode {
         return(
             <form onSubmit={this.handleAdd}>
-                <label>Enter HEX Code</label>
+                <h1>Enter HEX Code</h1>
+                <br/>
                 <input type="text" 
                     value={this.state.hex}
                     onChange={(e)=>{

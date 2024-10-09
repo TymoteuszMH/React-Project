@@ -7,9 +7,9 @@ const Colors:React.FC<IColorsProps> = ({ colors }:IColorsProps) =>{
     return(
         <div>
             <hr/>
-            {colors.map((color)=>(           
+            {colors.map((color, i)=>(           
                 //!color.deletable ? <li className={`.data-color-${color.hex}`}></li> : <li className={`.data-color-${color.hex}`}></li>
-                <li key={color.hex} style={{background: color.hex}} className="data-color"></li>
+                <li key={i} style={{background: color.hex}} className="data-color"></li>
             ))}
         </div>
     );
