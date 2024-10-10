@@ -13,7 +13,8 @@ Simple app for adding and filtering colors in hex format, made for intership
 Project created only using Typescript React
 
 ## Setup
-To run project, install it locally using npm:
+To run project, you have to have Node (v.21.6.2)
+Install it locally, then, in your folder with files open terminal with administration permissions and use node to install dependencies and start project:
 
 ```
 $ npm install
