@@ -1,13 +1,13 @@
 import React from "react";
 import './add-color-form.scss'
 import { RGB } from "../../interfaces/interfaces";
-import { IColorFormProps } from "../../interfaces/props";
+import { IColorFormProps, IHex } from "../../interfaces/props";
 
 class AddColorForm extends React.Component<IColorFormProps>{
 
     //hex state
-    state = {
-        hex: ''
+    state: IHex = {
+        hex: '',
     }
 
     //variable for enabling add button
@@ -20,7 +20,6 @@ class AddColorForm extends React.Component<IColorFormProps>{
     //checking text if it's valid, checking regex, adding # if not typed and blocking non-hex characters
     typing(event: React.ChangeEvent<HTMLInputElement>):void|boolean{
         let text: string = event.target.value;
-
         if(text[0] !== '#' && text.length >=1)
             text = `#${text}` //adding # if not there only on first position
 
@@ -46,7 +45,7 @@ class AddColorForm extends React.Component<IColorFormProps>{
     }
 
     //setting up done hex, turning it to upper case, setting to whole 6 letter hex code and setting up color
-    handleAdd = (e:React.FormEvent) =>{
+    handleAdd = (e:React.FormEvent):void =>{
         e.preventDefault();
         if(this.state.hex){
             this.state.hex = this.state.hex.toUpperCase(); //turning hex to upper case

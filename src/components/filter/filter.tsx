@@ -16,7 +16,7 @@ class Filter extends React.Component<IFilterProps>{
     }
 
     //changing filter value - type is used for reusebility, it contains options from option enum
-    changeValue(type: EOptions, value: string){
+    changeValue(type: EOptions, value: string): void{
         let newFilteredOptions = this.props.filterOptions;
 
         this.multipliers[type] = parseInt(value) //setting multiplier

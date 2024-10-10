@@ -8,45 +8,47 @@ import { defaultColors, defaultOptions } from './interfaces/defaults';
 import { checkFilterOptions } from './interfaces/service';
 
 const App:React.FC = () => {
-  //state of hex for input
-  const [hex, addColor] = useState<string>('')
 
   //state of colors with logic to get data from localStorage or defaults
   const [colors, setColors] = useState<IColor[]>(()=>{
     let savedColors:string|null = localStorage.getItem('colors'); //getting localstorage
     if(savedColors)
-      return JSON.parse(savedColors) //parsing storage if exists
+      return JSON.parse(savedColors); //parsing storage if exists
     return defaultColors; //else returning defaults
   });
 
-  //state of filtered colors to show colors
-  const [filteredColors, setFilteredColors] = useState<IColor[]>(colors)
+  //state of hex for input
+  const [hex, addColor] = useState<string>('');
 
-  const [filterOptions, setFilterOptions] = useState<IOptions>(structuredClone(defaultOptions))
+  //state of filtered colors to show colors
+  const [filteredColors, setFilteredColors] = useState<IColor[]>(colors);
+
+  //state for filter options
+  const [filterOptions, setFilterOptions] = useState<IOptions>(structuredClone(defaultOptions));
 
   //state for hidding filters
-  const [hidden, setHidden] = useState<boolean>(true)
+  const [hidden, setHidden] = useState<boolean>(true);
 
   //add handler
-  const handleAdd = (color: IColor):void =>{
-    saveColors([...colors, color], [...filteredColors, color])
+  const handleAdd = (color: IColor): void =>{
+    saveColors([...colors, color], [...filteredColors, color]);
   }
 
   //remove handler
-  const handleRemove = (color: IColor) =>{
-    saveColors(colors.filter(el => el !== color), filteredColors.filter(el => el !== color))
+  const handleRemove = (color: IColor): void =>{
+    saveColors(colors.filter(el => el !== color), filteredColors.filter(el => el !== color));
   }
 
   //reseting localstorage
-  const resetStorage = () =>{
-    saveColors(defaultColors, defaultColors)
+  const resetStorage = (): void =>{
+    saveColors(defaultColors, defaultColors);
     localStorage.clear();
   }
 
   //saving colors in states and localstorage
-  const saveColors = (newColors: IColor[], newFilteredColors: IColor[])=>{
-    setColors(newColors)
-    setFilteredColors(newFilteredColors.filter(el => checkFilterOptions(filterOptions, el)))
+  const saveColors = (newColors: IColor[], newFilteredColors: IColor[]): void=>{
+    setColors(newColors);
+    setFilteredColors(newFilteredColors.filter(el => checkFilterOptions(filterOptions, el)));
     localStorage.setItem('colors', JSON.stringify(newColors));
   }
 

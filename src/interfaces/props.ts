@@ -15,8 +15,11 @@ export interface IFilterProps{
     setFilteredOptions: React.Dispatch<React.SetStateAction<IOptions>>;
 }
 
-export interface IColorFormProps{
+export interface IHex{
     hex: string;
-    addColor: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface IColorFormProps extends IHex{
+    addColor?: React.Dispatch<React.SetStateAction<string>>;
     handleAdd: (color: IColor) => void;
 }
