@@ -1,5 +1,14 @@
-import { IColor } from "./IColor";
+import { IColor, IOptions } from "./interfaces";
 
+//deafult filter options
+export const defaultOptions:IOptions = {
+  r: 255,
+  g: 255,
+  b: 255,
+  s: 100
+}
+
+//default colors
 export const defaultColors:IColor[] = [
     {
       hex: "#FF0000",

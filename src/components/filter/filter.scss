@@ -1,26 +1,21 @@
-form{
-    align-items: center;
-    overflow: hidden
-}
 .data-filter-element{
+    margin: 0 5px 0 5px;
     max-width: 150px;
-    padding-left: 10px;
     user-select: none;
     float: left;
-    label{
+
+    .data-name{
         float: left;
-        width: 40px;
-        margin-left: 10px;
-        text-align: start;
+        width: 50px;
     }
-    span{
+    
+    .data-value{
         float: right;
-        width: 40px;
-        margin-right: 10px;
-        text-align: end;
+        width: 50px;
     }
+
     input{
-        clear: both;
+        margin: 0;
         width: 100px;
         max-width: 100px;
         height: 20px;

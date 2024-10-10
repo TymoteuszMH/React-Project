@@ -1,101 +1,77 @@
 import React from "react";
 import './filter.scss';
-import { EOptions, IFilterProps } from "../../interfaces/IFilter";
-import { IColor, IOptions } from "../../interfaces/IColor";
+import { IOptions } from "../../interfaces/interfaces";
+import { EOptions } from "../../interfaces/enums";
+import { IFilterProps } from "../../interfaces/props";
+import { defaultOptions } from "../../interfaces/defaults";
+import { checkFilterOptions } from "../../interfaces/service";
 
 class Filter extends React.Component<IFilterProps>{
 
+    //multiplier values
     multipliers: IOptions = {
         r: 100,
         g: 100,
         b: 100,
-        s: 100
     }
 
-    defaultOptions:IOptions = {
-        r: 255,
-        g: 255,
-        b: 255,
-        s: 100
-    }
+    //changing filter value - type is used for reusebility, it contains options from option enum
+    changeValue(type: EOptions, value: string){
+        let newFilteredOptions = this.props.filterOptions;
 
-    filteredOptions:IOptions = {
-        r: 255,
-        g: 255,
-        b: 255,
-        s: undefined
-    }
+        this.multipliers[type] = parseInt(value) //setting multiplier
+        newFilteredOptions[type] = Math.round(defaultOptions[type] * (this.multipliers[type]/100)) //setting option by calculating option by getting default value and multiply it by it's multiplier
 
-    changeValue(type: EOptions, event: React.ChangeEvent<HTMLInputElement>){
-        let filtredColors:IColor[] = [];
-        this.multipliers[type] = parseInt(event.target.value)
-        this.filteredOptions[type] = Math.round(this.defaultOptions.r * (this.multipliers[type]/100))
+        this.props.setFilteredColors([...this.props.colors].filter(color=>checkFilterOptions(newFilteredOptions, color))); //setting filtered options and sending it
 
-        this.props.colors.forEach((color)=>{
-            if(this.filteredOptions.r>=color.rgb.r && this.filteredOptions.g>=color.rgb.g && this.filteredOptions.b>=color.rgb.b)
-                filtredColors.push(color)
-        })
-
-        this.props.setFilteredColors(filtredColors);
+        this.props.setFilteredOptions(newFilteredOptions) //sending options to app
     }
 
     render(): React.ReactNode {
         return(
-            <form>
-                <div className="data-rgb-filter">
-                    <div className="data-filter-element">
-                        <div>
-                            <label>Red</label>
-                            <span>{this.multipliers.r}%</span>
-                        </div>
-                        <input type="range" 
-                        min="0" 
-                        max="100"
-                        defaultValue="100"
-                        onChange={(e)=>{
-                            this.changeValue(EOptions.r, e)}
-                        }
-                        />
-                        
-                    </div>
-                    <div className="data-filter-element">
-                        <div>
-                            <label>Green</label>
-                            <span>{this.multipliers.g}%</span>
-                        </div>
-                        <input type="range" 
+            <div>
+                <form>
+                    <div className="data-rgb-filter">
+                        <div className="data-filter-element data-border">
+                            <div className="data-name">Red</div>
+                            <div className="data-value">{this.multipliers.r}%</div>
+                            <input type="range" 
                             min="0" 
                             max="100"
                             defaultValue="100"
                             onChange={(e)=>{
-                                this.changeValue(EOptions.g, e)}
+                                this.changeValue(EOptions.r, e.target.value)}
                             }
-                        />
-                    </div>
-                    <div className="data-filter-element">
-                        <div>
-                            <label>Blue</label>
-                            <span>{this.multipliers.b}%</span>
+                            />
+                            
                         </div>
-                        <input type="range" 
-                        min="0" 
-                        max="100"
-                        defaultValue="100"
-                        onChange={(e)=>{
-                            this.changeValue(EOptions.b, e)}
-                        }
-                        />                        
+                        <div className="data-filter-element data-border">
+                            <div className="data-name">Green</div>
+                            <div className="data-value">{this.multipliers.g}%</div>
+                            <input type="range" 
+                                min="0" 
+                                max="100"
+                                defaultValue="100"
+                                onChange={(e)=>{
+                                    this.changeValue(EOptions.g, e.target.value)}
+                                }
+                            />
+                        </div>
+                        <div className="data-filter-element data-border">
+                            <div className="data-name">Blue</div>
+                            <div className="data-value">{this.multipliers.b}%</div>
+                            <input type="range" 
+                            min="0" 
+                            max="100"
+                            defaultValue="100"
+                            onChange={(e)=>{
+                                this.changeValue(EOptions.b, e.target.value)}
+                            }
+                            />                        
+                        </div>
                     </div>
-                </div>
-                {/* <input type="range" 
-                min="0" 
-                max="100"
-                defaultValue="100"
-                onChange={(e)=>{
-                    this.changeValue(EOptions.s, e)}
-                }
-                /> */}
-            </form>
+                </form>
+            </div>
         )
     }
 

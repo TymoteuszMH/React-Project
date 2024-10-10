@@ -1,3 +1,31 @@
+@use '../../sass/variables' as v;
+
 h1{
-    margin-bottom: 20px!important;
+    margin-bottom: 0!important;
+}
+.data-add{
+    input{
+        padding: 5px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border-color: v.$text-color;
+        border-radius: 10px 0 0 10px;
+    }
+    
+    input:active, input:focus{
+        border-radius: 10px 0 0 10px;
+    }
+    
+    button{
+        border-radius: 0 10px 10px 0;
+        border-left: 0;
+        color: v.$text-color;
+        background-color: v.$btn-bg-color;
+    }
+    
+    button:disabled{
+        border-radius: 0 10px 10px 0;
+        border-left: 0;
+        background-color: v.$btn-dis-bg-color;
+    }
 }

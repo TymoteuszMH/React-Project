@@ -1,38 +1,44 @@
+@use './sass/variables' as v;
+
 .App {
+  width: 100vw;
+  height: 100vh;
+  color: v.$text-color;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.data-border{
+  border: 2px v.$text-color solid;
+  border-radius: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.data-filter{
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 100%;
+  margin-bottom: 10px;
+  height: 50px;
+  margin: 10px;
+  overflow: hidden;
+  transition: all .7s;
+  &.hidden{
+    height: 0;
+    transition: all .7s;
+  }
 }
 
-.App-link {
-  color: #61dafb;
+button{
+  color: v.$text-color;
+  border-color: v.$text-color;
+  background-color: v.$btn-bg-color;
+  padding: 5px;
+  border-radius: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button:disabled{
+  cursor: auto !important;
+}
+
+button:focus, button:hover{
+  cursor: pointer;
 }

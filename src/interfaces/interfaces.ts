@@ -1,21 +1,18 @@
+//interface for rgb
 export interface RGB{
     r: number;
     g: number;
     b: number;
 }
 
+//interface for options extends rgb for its properties.
 export interface IOptions extends RGB{
-    s: number|undefined;
+    s?: number;
 }
 
+//interface for color
 export interface IColor{
     hex: string;
     rgb: RGB;
     deletable?:boolean;
 }
-
-export interface IColorsProps{
-    colors: IColor[];
-    setColors: React.Dispatch<React.SetStateAction<IColor[]>>;
-}
-

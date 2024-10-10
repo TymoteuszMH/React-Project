@@ -1,42 +1,38 @@
 import React from "react";
 import './colors.scss';
-import { IColor, IColorsProps, IOptions } from "../../interfaces/IColor";
+import { IColor } from "../../interfaces/interfaces";
+import { IColorsProps } from "../../interfaces/props";
 
-const Colors:React.FC<IColorsProps> = ({ colors }:IColorsProps) =>{
+const Colors:React.FC<IColorsProps> = ({ colors, handleRemove }:IColorsProps) =>{
 
+    //sorting array so: first goes highest red value if same, next goes green values and then blue values and return sorted array
     const sort = ():IColor[] =>{
         let sortedColors = [...colors];
-        // sortedColors.sort((a,b) => {
-        //     if(b.rgb.r != b.rgb.r)
-        //         return b.rgb.r - a.rgb.r
-        //     else if(b.rgb.g != b.rgb.g)
-        //         return b.rgb.g - a.rgb.g
-        //     return b.rgb.b - a.rgb.b
-        //     })
-        sortedColors.sort((a,b) => b.rgb.r - a.rgb.r)
+
+        sortedColors.sort((a,b) => b.rgb.r - a.rgb.r) //sorting by red value
+        
         sortedColors.sort((a,b) =>{
-            if(a.rgb.r == b.rgb.r)
+            if(a.rgb.r === b.rgb.r)
                 return b.rgb.g - a.rgb.g
             return 0;
-        })
+        }) //sorting by green values if red values are the same
+
         sortedColors.sort((a,b) =>{
-            if(a.rgb.r == b.rgb.r && a.rgb.g == b.rgb.g)
+            if(a.rgb.r === b.rgb.r && a.rgb.g === b.rgb.g)
                 return b.rgb.b - a.rgb.b
-            return 0;
-        })
+            return 0; 
+        }) //sorting by blue values if red and blue values are the same
         
         return sortedColors;
     }
 
     return(
-        <div>
-            <hr/>
+        <div className="colors">
             {sort().map((color, i)=>(           
-                //!color.deletable ? <li className={`.data-color-${color.hex}`}></li> : <li className={`.data-color-${color.hex}`}></li>
-                <div className="data-card">
+                <div key={i} className="data-card data-border">
                     <div style={{background: color.hex}} className="data-color"></div>
-                    <span>{color.hex}</span>
-
+                    <button className="data-delete" hidden={!color.deletable} onClick={() => handleRemove(color)}>x</button>
+                    <span className="data-name">{color.hex}</span>
                 </div>
             ))}
         </div>
